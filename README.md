@@ -8,7 +8,7 @@ Traefik v2 reverse proxy documentation for docker apps
 - CentOS7 kurulu bir makine
 - Öncelikle makinemizde docker yüklü olmalı.
 - Makinede docker-compose yüklü olmalı.
-- Kontrol panellerine ulaşabilmek için bir de domain gerekiyor. (örn: your_domain) İlerleyen örneklerde ve konfigürasyon dosyalarında your_domain kısımlarını kendi domain adımızla değiştirmeliyiz.
+- Kontrol panellerine ulaşabilmek için bir de domain gerekiyor. (örn: your_domain) Bu domainlerin, Let's Encyrpt in sertifika oluşturabilmesi için önceden servera yönlendirilmiş olması gerekiyor. İlerleyen örneklerde ve konfigürasyon dosyalarında your_domain kısımlarını kendi domain adımızla değiştirmeliyiz.
 ### Traefik 
 
 Öncelikle Traefik Dashboard erişim için bir yönetici parolası oluşturacağız. Traefik yapılandırma dosyasında yönetici giriş bilgileri şifreli bir şekilde tutuluyor. Bu bilgileri iki şekilde şifreleyebilirsiniz.
@@ -69,9 +69,10 @@ Yapılandırma dosyamız aşağıdaki gibi görünecek;
   filename = "traefik_dynamic.toml"
 ```
 - Traefik'i bütün istekleri `https` üzerine yönlendireck şekilde yapılandırıyoruz. 
-- Geçerli TLS sertifikaları oluşturmak için Let's Encrypt kullanıyoruz. Traefik v2 hiçbir ek ayar yapmadan Let's Encrypt desteği sağlıyor ve acme tipi sertifika çözücü oluşturarak ile kolaylıkla konfigüre edilebiliyor.
+- Geçerli TLS sertifikaları oluşturmak için Let's Encrypt kullanıyoruz. Traefik v2 hiçbir ek ayar yapmadan Let's Encrypt desteği sağlıyor ve acme tipi sertifika çözücü oluşturarak kolaylıkla konfigüre edilebiliyor.
+- Let's Encryptin başarılı şekilde bir sertifika oluşturabilmesi için Traefik ile kullanacağımız domainlerin bu işlemlerden önce serverımıza yönlendirilmiş olması gerekiyor.
 - your_email@your_domain kısmını geçerli bir email adresiyle değiştiriyoruz.
-#### Traefik Dinam Yapılandırma Dosyası
+#### Traefik Dinamik Yapılandırma Dosyası
 
 Şimdi de dinamik ayarların yer alacağı traefik_dynamic.toml dosyamızı oluştuyruyoruyz. Bunun da bir örneği repoda yer almakta.
 
@@ -94,7 +95,7 @@ Dinamik yapılandırma dosyamız şu şekilde görünecek:
 - YOUR_SECURE_PASSWORD kısmına 2. adımda oluşturduğumuz 'admin:$apr1$9r5rUTis$nqG/J4R7365QtB7JBlc2N0' şeklindeki çıktıyı yazacağız. Burada middleware ların kullanacağı authentication bilgileri tanımlanıyor.
 - your_domain kısmına ise kendi domain adımızı yazıyoruz. Böylece 'monitor.your_domain' adresinden dashboarda erişim sağlayabileceğiz.
 
-#### Traefik Konteynırımızı Çalıştırıyoruz
+#### Traefik konteynerımızı Çalıştırıyoruz
 
 Öncelikle Traefik i proxy olarak kullanacağımız containerlarla paylaşılacak 'web' adında bir docker network oluşturuyoruz. Bu adımdan sonra Traefik dashboardına erişebileceğiz.
 
@@ -114,10 +115,11 @@ Sonrasında bu dosyayı sadece owner ın yazıp okuyabilmesi için yetkilerini d
 chmod 600 acme.json
 ```
 
-Son olarak bu komut ile Traefik konteynırımızı oluşturuyoruz.
+Son olarak bu komut ile Traefik konteynerımızı oluşturuyoruz.
 
 ```bash
 docker run -d \
+  --restart=always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $PWD/traefik.toml:/traefik.toml \
   -v $PWD/traefik_dynamic.toml:/traefik_dynamic.toml \
@@ -128,12 +130,13 @@ docker run -d \
   --name traefik \
   traefik:v2.2
 ```
+Burada restart=always parametresine dikkat etmek gerekiyor. Bu parametresiz çalıştırdığımız konteyner eğer çalışmayı durdurursa, otomatik bir şekilde tekrar başlayamaz.
 
 Artık 'monitor.your_domain/dashboard/' adresinden Traefik dashboardımıza erişebiliriz. Arayüze girişte bizden kullanıcı adı ve şifre istenecek. Burada 2. adımda oluşturduğumuz şifre ve admin kullanıcı adı ile giriş yapıyoruz. Dashboarda girdiğinizde şu şekilde bir arayüzle karşılacaksınız: 
 
 [![](https://github.com/berkevaroll/traefik-v2-reverse-proxy-for-docker/blob/main/traefik_2_empty_dashboard.1.png)](https://github.com/berkevaroll/traefik-v2-reverse-proxy-for-docker/blob/main/traefik_2_empty_dashboard.1.png)
 
-#### Konteynırları Traefike Kaydetme
+#### konteynerları Traefike Kaydetme
 
 Traefik altında çalıştırmak istediğiniz uygulamalar için aşağıdaki gibi bir docker-compose.yml dosyası oluşturuyoruz:
 
@@ -161,7 +164,7 @@ services:
 Yukarıdaki gibi bir yapılandırma dosyasında:
 
 - your_image yerini kullanacağımız servisin image yolunu/ adını(registry.your_domain.com/image)
-- service_container_name yerini servisimizin içinde çalıştığı konteynır ismi
+- service_container_name yerini servisimizin içinde çalıştığı konteyner ismi
 - your_domain kısmına kendi domain adımızı
 - your_router kısmını ise kendi vereceğimiz router ismini
 	
