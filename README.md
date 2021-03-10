@@ -136,7 +136,7 @@ docker run -d \
 
 Artık 'monitor.your_domain/dashboard/' adresinden Traefik dashboardımıza erişebiliriz. Arayüze girişte bizden kullanıcı adı ve şifre istenecek. Burada 2. adımda oluşturduğumuz şifre ve admin kullanıcı adı ile giriş yapıyoruz. Dashboarda girdiğinizde şu şekilde bir arayüzle karşılacaksınız: 
 
-resim olacak burada
+[![](http://barisates.com/git/traefik/network-ls.png)](https://github.com/berkevaroll/traefik-v2-reverse-proxy-for-docker/blob/main/traefik_2_empty_dashboard.1.png)
 
 #### Konteynırları Traefike Kaydetme
 
@@ -171,7 +171,9 @@ Yukarıdaki gibi bir yapılandırma dosyasında:
 - your_router kısmını ise kendi vereceğimiz router ismini
 	
 yazarak uygulamamızı traefik altında çalıştırmaya hazır hale getirebiliriz. Burada router ismine dikkat etmek gerekiyor. Çünkü bir router ın sadece birer tane 80 ve 443 port u var. Yani bir router aynı anda 2 porta birden yönlendirme yapabilir.
-Her uygulamaya ayrı router açmak hem yönetim hem de çalışabilirlik olarak fayda sağlayacaktır. Yine dashboardda aşağıdaki ekranda routerlarınızı görüntüleyebilirsiniz.
+Her uygulamaya ayrı router açmak hem yönetim hem de çalışabilirlik olarak fayda sağlayacaktır. Yine dashboardda aşağıdaki ekranda routerlarınızı görüntüleyebilirsiniz:
+
+[![](http://barisates.com/git/traefik/network-ls.png)](https://github.com/berkevaroll/traefik-v2-reverse-proxy-for-docker/blob/main/traefik_2_http_routers.1.png)
 
 - https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04
 
