@@ -165,10 +165,10 @@ services:
 
 Yukarıdaki gibi bir yapılandırma dosyasında:
 
-	- your_image yerini kullanacağımız servisin image yolunu/ adını(registry.your_domain.com/image)
-	- service_container_name yerini servisimizin içinde çalıştığı konteynır ismi
-	- your_domain kısmına kendi domain adımızı
-	- your_router kısmını ise kendi vereceğimiz router ismini
+- your_image yerini kullanacağımız servisin image yolunu/ adını(registry.your_domain.com/image)
+- service_container_name yerini servisimizin içinde çalıştığı konteynır ismi
+- your_domain kısmına kendi domain adımızı
+- your_router kısmını ise kendi vereceğimiz router ismini
 	
 yazarak uygulamamızı traefik altında çalıştırmaya hazır hale getirebiliriz. Burada router ismine dikkat etmek gerekiyor. Çünkü bir router ın sadece birer tane 80 ve 443 port u var. Yani bir router aynı anda 2 porta birden yönlendirme yapabilir.
 Her uygulamaya ayrı router açmak hem yönetim hem de çalışabilirlik olarak fayda sağlayacaktır. Yine dashboardda aşağıdaki ekranda routerlarınızı görüntüleyebilirsiniz.
