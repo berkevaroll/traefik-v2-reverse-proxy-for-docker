@@ -68,13 +68,13 @@ Yapılandırma dosyamız aşağıdaki gibi görünecek;
 [providers.file]
   filename = "traefik_dynamic.toml"
 ```
-- Traefik'i bütün istekleri `https` üzerine yönlendireck şekilde yapılandırıyoruz. 
+- Traefik'i bütün istekleri `https` üzerine yönlendirecek şekilde yapılandırıyoruz. 
 - Geçerli TLS sertifikaları oluşturmak için Let's Encrypt kullanıyoruz. Traefik v2 hiçbir ek ayar yapmadan Let's Encrypt desteği sağlıyor ve acme tipi sertifika çözücü oluşturarak kolaylıkla konfigüre edilebiliyor.
 - Let's Encryptin başarılı şekilde bir sertifika oluşturabilmesi için Traefik ile kullanacağımız domainlerin bu işlemlerden önce serverımıza yönlendirilmiş olması gerekiyor.
 - your_email@your_domain kısmını geçerli bir email adresiyle değiştiriyoruz.
 #### Traefik Dinamik Yapılandırma Dosyası
 
-Şimdi de dinamik ayarların yer alacağı traefik_dynamic.toml dosyamızı oluştuyruyoruyz. Bunun da bir örneği repoda yer almakta.
+Şimdi de dinamik ayarların yer alacağı traefik_dynamic.toml dosyamızı oluşturuyoruz. Bunun da bir örneği repoda yer almakta.
 
 Dinamik yapılandırma dosyamız şu şekilde görünecek:
 
