@@ -164,6 +164,7 @@ services:
 ```
 
 Yukarıdaki gibi bir yapılandırma dosyasında:
+
 	- your_image yerini kullanacağımız servisin image yolunu/ adını(registry.your_domain.com/image)
 	- service_container_name yerini servisimizin içinde çalıştığı konteynır ismi
 	- your_domain kısmına kendi domain adımızı
