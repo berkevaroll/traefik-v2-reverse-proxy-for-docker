@@ -1,0 +1,18 @@
+version: "3"
+
+networks:
+  web:
+    external: true
+
+services:
+  service_name:
+    image: your_image_path/name
+    container_name: service_container_name
+    restart: always
+    labels:
+      - traefik.http.routers.your_router.rule=Host(`service_name.your_domain.com`)
+      - traefik.http.routers.your_router.tls=true
+      - traefik.http.routers.your_router.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    networks:
+      - web
