@@ -5,10 +5,10 @@ Traefik v2 reverse proxy documentation for docker apps
 
 ### Gereksinimler
 
+- CentOS7 kurulu bir makine
 - Öncelikle makinemizde docker yüklü olmalı.
 - Makinede docker-compose yüklü olmalı.
 - Kontrol panellerine ulaşabilmek için bir de domain gerekiyor. (örn: your_domain) İlerleyen örneklerde ve konfigürasyon dosyalarında your_domain kısımlarını kendi domain adımızla değiştirmeliyiz.
-
 ### Traefik 
 
 Öncelikle Traefik Dashboard erişim için bir yönetici parolası oluşturacağız. Traefik yapılandırma dosyasında yönetici giriş bilgileri şifreli bir şekilde tutuluyor. Bu bilgileri iki şekilde şifreleyebilirsiniz.
@@ -17,11 +17,6 @@ Traefik v2 reverse proxy documentation for docker apps
 
 Önce `htpasswd` için gerekli paketleri yüklüyoruz.
 
-- Ubuntu için:
-```bash
-sudo apt-get install apache2-utils
-```
-- CentOS için:
 ```bash
 sudo yum install httpd-tools
 ```
